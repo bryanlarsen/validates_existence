@@ -35,7 +35,11 @@ module Perfectline
           end
 
           if value.nil? or target_class.nil? or !target_class.exists?(value)
-            errors = [attribute]
+            errors = []
+
+            unless options[:both]==:foreign_key_only
+              errors.push(attribute)
+            end
 
             # add the error on both :relation and :relation_id
             if options[:both]
